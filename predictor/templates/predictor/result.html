@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction Result</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+        }
+        
+        .result-container {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .crop-img {
+            transition: transform 0.3s ease;
+        }
+        
+        .crop-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .prediction-label {
+            background: linear-gradient(45deg, #4ade80 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .predict-btn {
+            background: linear-gradient(45deg, #22c55e, #4ade80);
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .predict-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #16a34a, #22c55e);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .predict-btn:hover::before {
+            left: 0;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .predict-btn:active {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-0">
+    <div class="result-container max-w-4xl mx-auto my-8 bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white">
+            <h1 class="text-2xl md:text-3xl font-semibold text-center">Crop Prediction Result</h1>
+        </div>
+        
+        <div class="p-6 md:p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold prediction-label">
+                    {{ prediction|upper }}
+                </h2>
+            </div>
+            
+            <div class="crop-image mb-8">
+                {% if prediction %}
+                <div class="relative overflow-hidden rounded-xl shadow-lg aspect-w-16 aspect-h-9">
+                    <img src="{% static 'images/'|add:prediction|add:'.jpg' %}" 
+                         alt="{{ prediction|title }}"
+                         class="crop-img w-full h-full object-cover">
+                </div>
+                {% else %}
+                <div class="bg-gray-100 rounded-xl p-8 text-center text-gray-500">
+                    <p>No image available for this crop.</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="text-center">
+                <a href="{% url 'predict_crop' %}" 
+                   class="predict-btn inline-block px-10 py-4 text-white font-bold rounded-full shadow-lg text-lg uppercase tracking-wider">
+                    Try New Prediction
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

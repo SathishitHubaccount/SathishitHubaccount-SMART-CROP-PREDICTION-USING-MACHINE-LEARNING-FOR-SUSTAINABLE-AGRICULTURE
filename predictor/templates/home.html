@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIML Crop Prediction</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #16a34a, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #16a34a, #22c55e);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #22c55e, #4ade80);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-pattern min-h-screen flex items-center justify-center p-4">
+        <div class="card max-w-4xl mx-auto rounded-3xl shadow-2xl overflow-hidden animate__animated animate__fadeIn">
+            <div class="flex flex-col md:flex-row">
+                <!-- Content Section -->
+                <div class="p-8 md:p-12 lg:p-16">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                        AIML Crop Prediction
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Harness the power of Artificial Intelligence to optimize your farming decisions. Our intelligent crop prediction system analyzes:
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <p class="text-gray-600">Soil Properties Analysis</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <p class="text-gray-600">Weather Patterns</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <p class="text-gray-600">Environmental Factors</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'predict_crop' %}" 
+                       class="cta-button inline-block px-10 py-4 text-white font-semibold rounded-full shadow-lg text-lg uppercase tracking-wider">
+                        Start Prediction
+                    </a>
+                </div>
+
+                <!-- Image Section -->
+                <div class="relative md:w-1/2 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20"></div>
+                    <img src="/api/placeholder/800/600" 
+                         alt="Agriculture" 
+                         class="w-full h-full object-cover floating">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
