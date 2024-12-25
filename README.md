@@ -1,0 +1,2 @@
+# SathishitHubaccount-SMART-CROP-PREDICTION-USING-MACHINE-LEARNING-FOR-SUSTAINABLE-AGRICULTURE
+This project predicts optimal crops using machine learning based on soil and environmental parameters like Nitrogen, Phosphorus, Potassium, temperature, humidity, pH, and rainfall. The Naive Bayes model achieves 99.05% accuracy, with clustering models providing insights, promoting sustainable agriculture.
